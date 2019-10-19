@@ -3,7 +3,7 @@ IF(NOT $ENV{PM_PACKAGES_ROOT} EQUAL "")
 
 	INCLUDE(CMakeForceCompiler)
 
-	SET(LINUX_ROOT $ENV{PM_PACKAGES_ROOT}/clang-crosscompile/5.0.0/x86_64-unknown-linux-gnu)
+	SET(LINUX_ROOT "$ENV{LINUX_MULTIARCH_ROOT}/../v15_clang-8.0.1-centos7/x86_64-unknown-linux-gnu")
 	STRING(REGEX REPLACE "\\\\" "/" LINUX_ROOT ${LINUX_ROOT})
 
 	message (STATUS "LINUX_ROOT is '${LINUX_ROOT}'")
@@ -35,6 +35,13 @@ IF(NOT $ENV{PM_PACKAGES_ROOT} EQUAL "")
 	#set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 	
 	SET(CMAKE_MAKE_PROGRAM "$ENV{PM_PACKAGES_ROOT}/MinGW/0.6.2/bin/mingw32-make.exe")
+
+	# unreal custom libc++ stuff
+	SET(CMAKE_CXX_FLAGS "-I $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/include -I $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/include/c++/v1")
+	SET(UE_LINKER_FLAGS "-stdlib=libc++ -nodefaultlibs -L $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/ $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++.a $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++abi.a -lm -lc -lgcc_s")
+	SET(CMAKE_EXE_LINKER_FLAGS ${UE_LINKER_FLAGS})
+	SET(CAMKE_MODULE_LINKER_FLAGS ${UE_LINKER_FLAGS})
+	SET(CMAKE_SHARED_LINKER_FLAGS ${UE_LINKER_FLAGS})
 ELSE()
 	MESSAGE("PM_PACKAGES_ROOT  variable not defined!")
 ENDIF()

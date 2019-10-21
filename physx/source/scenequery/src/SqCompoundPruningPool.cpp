@@ -82,6 +82,9 @@ void CompoundTree::removeObject(PrunerHandle handle)
 bool CompoundTree::addObject(PrunerHandle& result, const PxBounds3& bounds, const PrunerPayload payload)
 {
 	mPruningPool->addObjects(&result, &bounds, &payload, 1);	
+
+	if (mPruningPool->mMaxNbObjects > mUpdateMap->size())
+		mUpdateMap->resize(mPruningPool->mMaxNbObjects);
 	
 	const PoolIndex poolIndex = mPruningPool->getIndex(result);
 	NodeList changedLeaves;

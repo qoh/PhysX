@@ -11,5 +11,6 @@
   </CMakeSwitches>
   <CMakeParams>
     <cmakeParam name="CMAKE_INSTALL_PREFIX" value="install/vc15win64/PhysX" comment="Install path relative to PhysX SDK root" />
+    <cmakeParam name="CMAKE_GENERATOR_TOOLSET" value="version=14.22" comment="Hopefully use the working VS compiler." />
   </CMakeParams>
 </preset>

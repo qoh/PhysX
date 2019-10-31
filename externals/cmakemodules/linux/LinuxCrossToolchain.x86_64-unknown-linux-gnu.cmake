@@ -38,7 +38,7 @@ IF(NOT $ENV{PM_PACKAGES_ROOT} EQUAL "")
 
 	# unreal custom libc++ stuff
 	SET(CMAKE_CXX_FLAGS "-I $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/include -I $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/include/c++/v1")
-	SET(UE_LINKER_FLAGS "-stdlib=libc++ -nodefaultlibs -L $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/ $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++.a $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++abi.a -lm -lc -lgcc_s")
+	SET(UE_LINKER_FLAGS "-stdlib=libc++ -nodefaultlibs -Wl,--build-id -L $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/ $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++.a $ENV{BRICKADIA_UNREAL_DIR}Engine/Source/ThirdParty/Linux/LibCxx/lib/Linux/x86_64-unknown-linux-gnu/libc++abi.a -lm -lc -lgcc_s")
 	SET(CMAKE_EXE_LINKER_FLAGS ${UE_LINKER_FLAGS})
 	SET(CAMKE_MODULE_LINKER_FLAGS ${UE_LINKER_FLAGS})
 	SET(CMAKE_SHARED_LINKER_FLAGS ${UE_LINKER_FLAGS})
